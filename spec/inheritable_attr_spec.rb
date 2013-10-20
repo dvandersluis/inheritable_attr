@@ -44,5 +44,17 @@ describe InheritableAttr do
         Base.numbers.should == [1, 2, 3]
       end
     end
+
+    context "with multiple instances" do
+      let!(:b1) { Base.new }
+      let!(:b2) { Base.new }
+
+      before { b1.numbers = [4, 5, 6] }
+
+      it { b1.numbers.should == [4, 5, 6] }
+      it { b2.numbers.should == [1, 2, 3] }
+      it { Base.numbers.should == [1, 2, 3] }
+      it { Sub.numbers.should == [1, 2, 3] }
+    end
   end
 end
